@@ -39,6 +39,9 @@
       document.querySelectorAll('.card').forEach(card => {
         card.style.fontSize = fontSize + 'px';
         card.querySelectorAll('h3').forEach(h3 => h3.style.fontSize = (fontSize + 2) + 'px');
+        // 폰트 크기에 따라 min-width 동적 조절 (최소 100px ~ 최대 300px)
+        let minW = Math.max(100, Math.min(300, fontSize * 10));
+        card.style.minWidth = minW + 'px';
       });
       // 메인 타이틀
       const h1 = document.getElementById('mainTitle');
@@ -67,6 +70,15 @@
       bindFontButtons('fontMinusStyle', 'fontPlusStyle');
       bindFontButtons('fontMinusSong', 'fontPlusSong');
     };
+    // 더블 탭 확대 방지
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = new Date().getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
   </script>
   <div class="overflow-x-auto">
     <!-- VOICE 섹션 id 추가 및 네비게이션(본인 제외) -->
