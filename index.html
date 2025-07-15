@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>전자 피아노 기능 목록</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (min-width: 640px) {
+      .wrap-flex {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 p-6">
+  <div class="flex items-center justify-between mb-6 max-w-screen-xl mx-auto px-4">
+    <div class="flex items-center justify-center gap-2 w-full">
+      <h1 id="mainTitle" class="text-3xl font-bold text-center mx-2">전자 피아노 기능 목록</h1>
+    </div>
+  </div>
+  <script>
+    const minFont = 12;
+    const maxFont = 28;
+    // localStorage에서 폰트 크기 불러오기, 없으면 16
+    let fontSize = parseInt(localStorage.getItem('cardFontSize')) || 16;
+    function updateCardFontSize() {
+      // 카드 내 텍스트
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.fontSize = fontSize + 'px';
+        card.querySelectorAll('h3').forEach(h3 => h3.style.fontSize = (fontSize + 2) + 'px');
+      });
+      // 메인 타이틀
+      const h1 = document.getElementById('mainTitle');
+      h1.style.fontSize = (fontSize + 12) + 'px';
+    }
+    // 모든 +,- 버튼에 이벤트 연결
+    function bindFontButtons(minusId, plusId) {
+      document.getElementById(plusId).onclick = function () {
+        if (fontSize < maxFont) {
+          fontSize += 2;
+          localStorage.setItem('cardFontSize', fontSize);
+          updateCardFontSize();
+        }
+      };
+      document.getElementById(minusId).onclick = function () {
+        if (fontSize > minFont) {
+          fontSize -= 2;
+          localStorage.setItem('cardFontSize', fontSize);
+          updateCardFontSize();
+        }
+      };
+    }
+    window.onload = function () {
+      updateCardFontSize();
+      bindFontButtons('fontMinusTop', 'fontPlusTop');
+      bindFontButtons('fontMinusStyle', 'fontPlusStyle');
+      bindFontButtons('fontMinusSong', 'fontPlusSong');
+    };
+  </script>
+  <div class="overflow-x-auto">
+    <!-- VOICE 섹션 id 추가 및 네비게이션(본인 제외) -->
+    <div id="voice"></div>
+    <div class="flex justify-center gap-4 mb-4">
+      <a href="#styles" class="text-blue-600 hover:underline">STYLE</a>
+      <span>|</span>
+      <a href="#songs" class="text-blue-600 hover:underline">SONG</a>
+    </div>
+    <div class="flex items-center justify-center gap-2 mb-6">
+      <button id="fontMinusTop" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
+      <h1 id="mainTitle" class="text-3xl font-bold text-center mx-2">Voice (132개)</h1>
+      <button id="fontPlusTop" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
+    </div>
+    <div class="flex flex-wrap gap-4 justify-center max-w-screen-xl mx-auto">
+
+      <!-- 전체 카드 UI 삽입 시작 -->
+      <!-- 피아노 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">피아노</h3>
+        <ul class="list-disc pl-5">
+          <li>001 피아노 1</li>
+          <li>002 피아노 2</li>
+          <li>003 피아노 3</li>
+          <li>004 혼키 통크</li>
+          <li>005 일렉 피아노 1</li>
+          <li>006 일렉 피아노 2</li>
+          <li>007 하프시코드</li>
+          <li>008 클라비넷</li>
+        </ul>
+      </div>
+
+      <!-- 크로마틱 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">크로마틱</h3>
+        <ul class="list-disc pl-5">
+          <li>009 첼레스타</li>
+          <li>010 글로켄슈필</li>
+          <li>011 뮤직 박스</li>
+          <li>012 비브라폰</li>
+          <li>013 마림바</li>
+          <li>014 실로폰</li>
+          <li>015 튜브벨</li>
+          <li>016 덜시머</li>
+        </ul>
+      </div>
+
+      <!-- 오르간 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">오르간</h3>
+        <ul class="list-disc pl-5">
+          <li>017 오르간 1</li>
+          <li>018 오르간 2</li>
+          <li>019 오르간 3</li>
+          <li>020 처치 오르간</li>
+          <li>021 리드 오르간</li>
+          <li>022 아코디언</li>
+          <li>023 하모니카</li>
+          <li>024 탱고 아코디언</li>
+        </ul>
+      </div>
+
+      <!-- 기타 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">기타</h3>
+        <ul class="list-disc pl-5">
+          <li>025 나일론 기타</li>
+          <li>026 스틸 기타</li>
+          <li>027 재즈 기타</li>
+          <li>028 클린 기타</li>
+          <li>029 뮤트 기타</li>
+          <li>030 오버드라이브 기타</li>
+          <li>031 디스토션 기타</li>
+          <li>032 하모닉 기타</li>
+        </ul>
+      </div>
+
+      <!-- 베이스 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">베이스</h3>
+        <ul class="list-disc pl-5">
+          <li>033 어쿠스틱 베이스</li>
+          <li>034 핑거드 베이스</li>
+          <li>035 피크 베이스</li>
+          <li>036 프렛리스 베이스</li>
+          <li>037 슬랩 베이스 1</li>
+          <li>038 슬랩 베이스 2</li>
+          <li>039 신스베이스 1</li>
+          <li>040 신스베이스 2</li>
+        </ul>
+      </div>
+
+      <!-- 스트링스 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">스트링스</h3>
+        <ul class="list-disc pl-5">
+          <li>041 바이올린</li>
+          <li>042 비올라</li>
+          <li>043 첼로</li>
+          <li>044 콘트라베이스</li>
+          <li>045 트레몰로 스트링</li>
+          <li>046 피치카토 스트링</li>
+          <li>047 하프</li>
+          <li>048 팀파니</li>
+        </ul>
+      </div>
+
+      <!-- 앙상블 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">앙상블</h3>
+        <ul class="list-disc pl-5">
+          <li>049 스트링스</li>
+          <li>050 슬로우 스트링스</li>
+          <li>051 신스 스트링 1</li>
+          <li>052 신스 스트링 2</li>
+          <li>053 합창</li>
+          <li>054 보코더</li>
+          <li>055 신스보이스</li>
+          <li>056 오케스트라 히트</li>
+        </ul>
+      </div>
+
+      <!-- 브라스 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">브라스</h3>
+        <ul class="list-disc pl-5">
+          <li>057 트럼펫</li>
+          <li>058 트롬본</li>
+          <li>059 튜바</li>
+          <li>060 뮤트 트럼펫</li>
+          <li>061 프렌치 호른</li>
+          <li>062 브라스 섹션</li>
+          <li>063 신브라스 1</li>
+          <li>064 신브라스 2</li>
+        </ul>
+      </div>
+
+      <!-- 리드 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">리드</h3>
+        <ul class="list-disc pl-5">
+          <li>065 소프라노 색소폰</li>
+          <li>066 알토 색소폰</li>
+          <li>067 테너 색소폰</li>
+          <li>068 바리톤 색소폰</li>
+          <li>069 오보에</li>
+          <li>070 잉글리시 호른</li>
+          <li>071 바순</li>
+          <li>072 클라리넷</li>
+        </ul>
+      </div>
+
+      <!-- 파이프 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">파이프</h3>
+        <ul class="list-disc pl-5">
+          <li>073 피콜로</li>
+          <li>074 플루트</li>
+          <li>075 레코더</li>
+          <li>076 팬 플루트</li>
+          <li>077 병</li>
+          <li>078 샤쿠하치</li>
+          <li>079 휘슬</li>
+          <li>080 오카리나</li>
+        </ul>
+      </div>
+
+      <!-- 신스 리드 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">신스 리드</h3>
+        <ul class="list-disc pl-5">
+          <li>081 스퀘어 리드</li>
+          <li>082 소우 리드</li>
+          <li>083 컬리오페</li>
+          <li>084 쉬퍼</li>
+          <li>085 차랑</li>
+          <li>086 솔로 보이스</li>
+          <li>087 5번째 쏘우</li>
+          <li>088 베이스 리드</li>
+        </ul>
+      </div>
+
+      <!-- 패드 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">패드</h3>
+        <ul class="list-disc pl-5">
+          <li>089 뉴에이지</li>
+          <li>090 웜 패드</li>
+          <li>091 폴리 신스</li>
+          <li>092 스페이스 보이스</li>
+          <li>093 보우드 글래스</li>
+          <li>094 메탈 패드</li>
+          <li>095 헤일로 패드</li>
+          <li>096 스윕 패드</li>
+        </ul>
+      </div>
+
+      <!-- 신스 SFX -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">신스 SFX</h3>
+        <ul class="list-disc pl-5">
+          <li>097 아이스 레인</li>
+          <li>098 사운드 트랙</li>
+          <li>099 크리스탈</li>
+          <li>100 분위기</li>
+          <li>101 밝기</li>
+          <li>102 고블린</li>
+          <li>103 에코 드롭</li>
+          <li>104 스타 테마</li>
+        </ul>
+      </div>
+
+      <!-- 에스닉 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">에스닉</h3>
+        <ul class="list-disc pl-5">
+          <li>105 시타르</li>
+          <li>106 밴조</li>
+          <li>107 샤미센</li>
+          <li>108 고토</li>
+          <li>109 칼림바</li>
+          <li>110 백파이프</li>
+          <li>111 피들</li>
+          <li>112 샤나이</li>
+        </ul>
+      </div>
+
+      <!-- 퍼커시브 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">퍼커시브</h3>
+        <ul class="list-disc pl-5">
+          <li>113 팅클 벨</li>
+          <li>114 아고고</li>
+          <li>115 스틸 드럼</li>
+          <li>116 우드블럭</li>
+          <li>117 타이코</li>
+          <li>118 멜로톰</li>
+          <li>119 신드럼</li>
+          <li>120 리버스</li>
+        </ul>
+      </div>
+
+      <!-- 효과음(SFX) -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">효과음(SFX)</h3>
+        <ul class="list-disc pl-5">
+          <li>121 기타 프렛 노이즈</li>
+          <li>122 바다말</li>
+          <li>123 바다말 울림</li>
+          <li>124 새소리</li>
+          <li>125 전화</li>
+          <li>126 헬리콥터</li>
+          <li>127 박수</li>
+          <li>128 총소리</li>
+        </ul>
+      </div>
+
+      <!-- 오리엔탈 -->
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-blue-100 p-2 rounded">오리엔탈</h3>
+        <ul class="list-disc pl-5">
+          <li>129 얼후</li>
+          <li>130 피파</li>
+          <li>131 소라</li>
+          <li>132 쿠디</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- STYLE(100개) 섹션 -->
+  <div id="styles" class="mt-12 px-4">
+    <!-- 네비게이션(본인 제외) -->
+    <div class="flex justify-center gap-4 mb-4">
+      <a href="#voice" class="text-blue-600 hover:underline">VOICE</a>
+      <span>|</span>
+      <a href="#songs" class="text-blue-600 hover:underline">SONG</a>
+    </div>
+    <div class="flex items-center justify-center gap-2 mb-6">
+      <button id="fontMinusStyle" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
+      <h2 class="text-2xl font-bold text-center mb-4" id="styleTitle">STYLE (100개)</h2>
+      <button id="fontPlusStyle" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
+    </div>
+    <div class="flex flex-wrap gap-4 justify-center max-w-screen-xl mx-auto">
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">록 1</h3>
+        <ul class="list-disc pl-5">
+          <li>01 8비트 1</li>
+          <li>02 8비트 2</li>
+          <li>03 8비트 3</li>
+          <li>04 8비트 4</li>
+          <li>05 8비트 5</li>
+          <li>06 8비트 록 1</li>
+          <li>07 8비트 록 2</li>
+          <li>08 8비트 록 3</li>
+          <li>09 16비트 1</li>
+          <li>10 16비트 2</li>
+          <li>11 16비트 3</li>
+          <li>12 발라드 1</li>
+          <li>13 발라드 2</li>
+          <li>14 발라드 3</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">리듬 & 블루스</h3>
+        <ul class="list-disc pl-5">
+          <li>15 블루스 셔플 1</li>
+          <li>16 블루스 셔플 2</li>
+          <li>17 블루스</li>
+          <li>18 리듬 & 블루스</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">록 2</h3>
+        <ul class="list-disc pl-5">
+          <li>19 슬로우 록</li>
+          <li>20 슬로우 록 2</li>
+          <li>21 록앤롤 1</li>
+          <li>22 록앤롤 2</li>
+          <li>23 트위스트</li>
+          <li>24 부기우기</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">펑크 록 & 랩</h3>
+        <ul class="list-disc pl-5">
+          <li>25 펑크 록</li>
+          <li>26 펑크 록</li>
+          <li>27 랩 1</li>
+          <li>28 랩 2</li>
+          <li>29 랩 3</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">셔플 & 펑크</h3>
+        <ul class="list-disc pl-5">
+          <li>30 셔플 1</li>
+          <li>31 셔플 2</li>
+          <li>32 셔플 3</li>
+          <li>33 펑크 1</li>
+          <li>34 펑크 2</li>
+          <li>35 펑크 3</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">소울</h3>
+        <ul class="list-disc pl-5">
+          <li>36 소울 1</li>
+          <li>37 소울 2</li>
+          <li>38 소울 3</li>
+          <li>39 소울 4</li>
+          <li>40 소울 5</li>
+          <li>41 소울 6</li>
+          <li>42 소울 7</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">댄스 & 팝</h3>
+        <ul class="list-disc pl-5">
+          <li>43 디스코 1</li>
+          <li>44 디스코 2</li>
+          <li>45 디스코 록</li>
+          <li>46 팝</li>
+          <li>47 팝 스윙</li>
+          <li>48 하우스 1</li>
+          <li>49 하우스 2</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">유로비트 & 가스펠</h3>
+        <ul class="list-disc pl-5">
+          <li>50 유로비트 1</li>
+          <li>51 유로비트 2</li>
+          <li>52 가스펠</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">재즈 & 스윙</h3>
+        <ul class="list-disc pl-5">
+          <li>53 스윙</li>
+          <li>54 재즈 스윙 1</li>
+          <li>55 재즈 스윙 2</li>
+          <li>56 빅밴드 1</li>
+          <li>57 빅밴드 2</li>
+          <li>58 재즈 발라드</li>
+          <li>59 재즈 왈츠</li>
+          <li>60 스윙 왈츠</li>
+          <li>61 딕시</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">50's/라틴</h3>
+        <ul class="list-disc pl-5">
+          <li>62 50년대 재즈</li>
+          <li>63 폭스트롯</li>
+          <li>64 찰스턴</li>
+          <li>65 보사노바 1</li>
+          <li>66 보사노바 2</li>
+          <li>67 맘보</li>
+          <li>68 차차차 1</li>
+          <li>69 차차차 2</li>
+          <li>70 룸바 1</li>
+          <li>71 룸바 2</li>
+          <li>72 탱고</li>
+          <li>73 람바다</li>
+          <li>74 삼바</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">포크</h3>
+        <ul class="list-disc pl-5">
+          <li>75 에스파뇰</li>
+          <li>76 살사</li>
+          <li>77 라틴</li>
+          <li>78 슬로우 왈츠</li>
+          <li>79 팝 왈츠</li>
+          <li>80 왈츠</li>
+          <li>81 행진곡</li>
+          <li>82 행진곡 6/8</li>
+          <li>83 폴카</li>
+          <li>84 컨트리 1</li>
+          <li>85 컨트리 2</li>
+          <li>86 컨트리 3</li>
+          <li>87 컨트리 발라드</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-green-100 p-2 rounded">컨트리/레게/오리엔탈</h3>
+        <ul class="list-disc pl-5">
+          <li>88 컨트리 록</li>
+          <li>89 블루그래스 1</li>
+          <li>90 블루그래스 2</li>
+          <li>91 컨트리 왈츠</li>
+          <li>92 팝 컨트리</li>
+          <li>93 레게</li>
+          <li>94 당둣</li>
+          <li>95 케롱콩</li>
+          <li>96 팝 말레이</li>
+          <li>97 오리엔탈 1</li>
+          <li>98 오리엔탈 2</li>
+          <li>99 오리엔탈 3</li>
+          <li>00 메트로놈</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SONG(50개) 섹션 -->
+  <div id="songs" class="mt-12 px-4">
+    <!-- 네비게이션(본인 제외) -->
+    <div class="flex justify-center gap-4 mb-4">
+      <a href="#voice" class="text-blue-600 hover:underline">VOICE</a>
+      <span>|</span>
+      <a href="#styles" class="text-blue-600 hover:underline">STYLE</a>
+    </div>
+    <div class="flex items-center justify-center gap-2 mb-6">
+      <button id="fontMinusSong" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
+      <h2 class="text-2xl font-bold text-center mb-4" id="songTitle">SONG (50개)</h2>
+      <button id="fontPlusSong" class="text-3xl px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
+    </div>
+    <div class="flex flex-wrap gap-4 justify-center max-w-screen-xl mx-auto">
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Classical</h3>
+        <ul class="list-disc pl-5">
+          <li>01 - 11</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Folk / 기타</h3>
+        <ul class="list-disc pl-5">
+          <li>12 - 23</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Golden Song</h3>
+        <ul class="list-disc pl-5">
+          <li>24 - 30</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Pop & Funk</h3>
+        <ul class="list-disc pl-5">
+          <li>31 - 37</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Jazz & Fusion</h3>
+        <ul class="list-disc pl-5">
+          <li>38-44</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Soundtrack</h3>
+        <ul class="list-disc pl-5">
+          <li>45 - 48</li>
+        </ul>
+      </div>
+      <div class="card min-w-[300px] bg-white rounded-xl shadow p-4">
+        <h3 class="text-lg font-semibold mb-2 bg-yellow-100 p-2 rounded">Latin</h3>
+        <ul class="list-disc pl-5">
+          <li>49 - 50</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
