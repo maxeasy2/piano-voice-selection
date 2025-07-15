@@ -5,10 +5,19 @@
   <meta charset="UTF-8">
   <title>전자 피아노 기능 목록</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     @media (min-width: 640px) {
       .wrap-flex {
         flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        box-sizing: border-box;
       }
     }
   </style>
